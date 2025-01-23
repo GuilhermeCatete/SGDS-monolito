@@ -166,17 +166,7 @@
 						repositorioFaturamento.concluirFaturamentoConta(conta.getId());
 					} catch (ErroRepositorioException e) {
 						throw new ControladorException("Erro ao concluir etapa de faturamento", e);
-					}
-					
-					/* Metodo comentado, esperando pra entrar em produção para GERAR QRCODE
-					 * Paulo Almeida -- 12/12/2024
-						String cpfCnpj = getControladorCliente().consultarCpfCnpjClienteResponsavel(imovel.getIdImovel());
-						BigDecimal valorOriginal = BigDecimal.valueOf(Double.valueOf(conta.getValorTotalConta()));
-										  
-					if (isImovelValidoParaGerarQrCode(imovel, cpfCnpj, valorOriginal)) {
-						getControladorBanpara().gerarQrCode(conta.getId());
-					}*/
-					
+					}			
 				}
 
 				if (!gerarAtividadeGrupoFaturamento) {
@@ -700,13 +690,6 @@
 					 * infraÃ§Ã£o
 					 */
 
-					/**
-					 * AlteraÃ§Ã£o feita por Bruno Barros dia 08 de Janeiro de 2009 Solicitante:
-					 * Nelson Carvalho DescriÃ§Ã£o da solicitaÃ§Ã£o: NÃ£o mais gerar o vinculo de
-					 * debito cobrado a um auto de infraÃ§Ã£o quando o dÃ©bito a cobrar de origem
-					 * estiver vinculado ao mesmo.
-					 */
-
 					/*
 					 * Atualiza o nÂº de prestaÃ§Ãµes cobradas do dÃ©bito a cobrar e adicona o
 					 * objeto a coleÃ§Ã£o de dÃ©bitos a cobrar que vai ser atualizados.
@@ -723,13 +706,6 @@
 
 				} // fim se atividade grupo faturamento
 
-				/*
-				 * Desenvolvedor: Hugo Amorim Analista:Jeferson Pedrosa Data: 29/07/2010
-				 * 
-				 * [CRC4457] Colecionar os valores que compÃµem os totais de dÃ©bito e crÃ©ditos
-				 * nas tabelas resumo_faturamento_simulado_detalhe_debito e
-				 * resumo_faturamento_simulado_detalhe_credito respectivamente.
-				 */
 				// Verifica se debito a cobrar jÃ¡ foi inserido, caso sim
 				// acumala os valores.
 				if (mapValoresPorTipoDebito.containsKey(debitoACobrar.getDebitoTipo())) {
@@ -1569,12 +1545,6 @@
 				&& (colecaoCalcularValoresAguaEsgotoHelper != null
 						&& !colecaoCalcularValoresAguaEsgotoHelper.isEmpty())) {
 
-			/*
-			 * Colocado por Raphael Rossiter em 26/03/2007
-			 * 
-			 * OBJ: Gerar o resumo da simulaÃ§Ã£o do faturamento com os valores por
-			 * categoria e nÃ£o com o valor total.
-			 */
 
 			// ColeÃ§Ã£o com os valores por Categoria (DÃBITOS)
 			Collection colecaoValoresDebitosCategorias = getControladorImovel()
@@ -1681,12 +1651,6 @@
 			}
 		} else if (colecaoCategorias != null && !colecaoCategorias.isEmpty()) {
 
-			/*
-			 * Colocado por Raphael Rossiter em 26/03/2007
-			 * 
-			 * OBJ: Gerar o resumo da simulaÃ§Ã£o do faturamento com os valores por
-			 * categoria e nÃ£o com o valor total
-			 */
 
 			// ColeÃ§Ã£o com os valores por Categoria (DÃBITOS)
 			Collection colecaoValoresDebitosCategorias = getControladorImovel()
